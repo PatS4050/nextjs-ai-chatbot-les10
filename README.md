@@ -62,15 +62,16 @@ Iedere aanroep naar een taalmodel kost geld. Ook tijdens het ontwikkelen en test
 
 Bedenk minimaal twee maatregelen die helpen om onnodig of buitensporig API-gebruik te beperken en implementeer deze.
 
-<details>Inspiratie nodig?</details>
-<summary>
+<details>
+<summary>Inspiratie nodig? ✨</summary>
 Je kunt bijvoorbeeld denken aan:
-- **Invoer valideren:** voorkom dat lege berichten of berichten die uitsluitend uit spaties bestaan naar de API worden gestuurd.
-- **Berichtlengte beperken:** voorkom dat een gebruiker extreem lange berichten verstuurt.
-- **Antwoordlengte begrenzen:** stel een maximum in voor het aantal tokens dat het model mag genereren.
-- **Dubbele verzoeken voorkomen:** voorkom dat een gebruiker per ongeluk meerdere identieke verzoeken verstuurt.
-- **Berichtgeschiedenis beperken:** onderzoek of je onnodig veel eerdere berichten naar het model meestuurt.
-</summary>
+
+- Invoer valideren: voorkom dat lege berichten of berichten die uitsluitend uit spaties bestaan naar de API worden gestuurd.
+- Berichtlengte beperken: voorkom dat een gebruiker extreem lange berichten verstuurt.
+- Antwoordlengte begrenzen: stel een maximum in voor het aantal tokens dat het model mag genereren.
+- Dubbele verzoeken voorkomen: voorkom dat een gebruiker per ongeluk meerdere identieke verzoeken verstuurt.
+- Berichtgeschiedenis beperken: onderzoek of je onnodig veel eerdere berichten naar het model meestuurt.
+</details>
 
 > **Beantwoord daarna de volgende vragen:**
 >
