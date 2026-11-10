@@ -3,10 +3,14 @@ import {
     streamText,
     UIMessage,
     convertToModelMessages,
+    createUIMessageStreamResponse,
+    toUIMessageStream,
 } from 'ai';
+import { saveChat } from '@/src/lib/chat/mutations';
 
 export async function POST(req: Request) {
-    const { messages }: { messages: UIMessage[] } = await req.json();
+    const { id, messages }: { id: string; messages: UIMessage[] } =
+        await req.json();
 
     const result = streamText({
         model: openai('gpt-4o-mini'),
@@ -30,9 +34,20 @@ export async function POST(req: Request) {
 
             Beantwoord geen vragen die niet over webdevelopment gaan.
         `,
-            
         messages: await convertToModelMessages(messages),
     });
 
-    return result.toUIMessageStreamResponse();
+    return createUIMessageStreamResponse({
+        stream: toUIMessageStream({
+            stream: result.stream,
+            originalMessages: messages,
+            onEnd: async ({ messages: conversation, outcome }) => {
+                if (!id || outcome.status === 'failed') {
+                    return;
+                }
+
+                await saveChat(id, conversation);
+            },
+        }),
+    });
 }
