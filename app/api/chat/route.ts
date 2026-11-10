@@ -30,11 +30,15 @@ export async function POST(req: Request) {
 
             OMGAAN MET ONZEKERHEID:
             Als je het antwoord niet weet, zeg dan:
-            "Ik weet het antwoord niet." verzin nooit feiten.
+            "Je overvraagt me, Ik weet het antwoord niet." verzin nooit feiten.
 
             Beantwoord geen vragen die niet over webdevelopment gaan.
         `,
         messages: await convertToModelMessages(messages),
+        onEnd: ({ usage }) => {
+            console.log('input tokens:', usage.inputTokens);
+            console.log('output tokens:', usage.outputTokens);
+        },
     });
 
     return createUIMessageStreamResponse({

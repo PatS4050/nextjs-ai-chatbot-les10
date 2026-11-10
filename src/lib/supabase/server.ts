@@ -6,7 +6,7 @@ export function createSupabaseServerClient() {
     process.env.SUPABASE_SECRET_KEY ?? process.env.SUBABASE_SECRET_KEY;
 
   if (!url || !secretKey) {
-    throw new Error('Supabase server configuration is missing.');
+    throw new Error('Supabase server configuratie ontbreekt.');
   }
 
   return createClient(url, secretKey, {
