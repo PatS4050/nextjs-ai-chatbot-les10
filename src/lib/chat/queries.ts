@@ -23,6 +23,23 @@ export async function getLatestChat(): Promise<{
 
   return {
     id: data.id,
-    messages: Array.isArray(data.messages) ? (data.messages as UIMessage[]) : [],
+    messages: withUniqueMessageIds(
+      Array.isArray(data.messages) ? (data.messages as UIMessage[]) : [],
+    ),
   };
+}
+
+function withUniqueMessageIds(messages: UIMessage[]): UIMessage[] {
+  const usedIds = new Set<string>();
+
+  return messages.map(message => {
+    if (message.id && !usedIds.has(message.id)) {
+      usedIds.add(message.id);
+      return message;
+    }
+
+    const id = crypto.randomUUID();
+    usedIds.add(id);
+    return { ...message, id };
+  });
 }

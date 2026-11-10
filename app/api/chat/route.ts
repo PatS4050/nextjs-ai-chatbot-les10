@@ -4,6 +4,7 @@ import {
     UIMessage,
     convertToModelMessages,
     createUIMessageStreamResponse,
+    generateId,
     toUIMessageStream,
 } from 'ai';
 import { saveChat } from '@/src/lib/chat/mutations';
@@ -34,7 +35,8 @@ export async function POST(req: Request) {
 
             Beantwoord geen vragen die niet over webdevelopment gaan.
         `,
-        messages: await convertToModelMessages(messages),
+        // messages: await convertToModelMessages(messages),
+        messages: await convertToModelMessages(messages.slice(-10)),
         onEnd: ({ usage }) => {
             console.log('input tokens:', usage.inputTokens);
             console.log('output tokens:', usage.outputTokens);
@@ -45,6 +47,7 @@ export async function POST(req: Request) {
         stream: toUIMessageStream({
             stream: result.stream,
             originalMessages: messages,
+            generateMessageId: generateId,
             onEnd: async ({ messages: conversation, outcome }) => {
                 if (!id || outcome.status === 'failed') {
                     return;
